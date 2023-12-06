@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Escape Game - Compte à Rebours Enquête</title>
+  <style>
+    body {
+      font-family: 'Courier New', monospace;
+      text-align: center;
+      margin-top: 50px;
+      background-color: #1c1c1c;
+      color: #ffffff;
+    }
+
+    header {
+      background-color: #3498db; /* Couleur bleue */
+      padding: 10px;
+    }
+
+    header h1 {
+      font-size: 24px;
+      margin: 0;
+    }
+
+    #countdown {
+      font-size: 48px;
+      font-weight: bold;
+      color: #3498db; /* Bleu */
+      margin: 20px;
+    }
+
+    #expired {
+      font-size: 48px;
+      font-weight: bold;
+      color: #e74c3c;
+      margin: 20px;
+    }
+
+    #instructions {
+      font-size: 18px;
+      color: #ffffff;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    #logo {
+      width: 150px; /* Taille augmentée */
+      height: 150px; /* Taille augmentée */
+      margin: 20px;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Les Mystères de l'Emploi</h1>
+</header>
+
+<img id="logo" src="detective-badge.png" alt="Detective Badge">
+
+<div id="instructions">
+  <p>Bienvenue, détective ! Vous avez jusqu'au 20 décembre pour résoudre les énigmes et échapper à la pièce avant que quelque chose de sinistre ne se produise. Le compte à rebours ci-dessous indique le temps restant. Utilisez vos compétences d'enquêteur pour réussir. Bonne chance !</p>
+</div>
+
+<div id="countdown">00:00:00</div>
+
+<script>
+  // Définir la date de fin du compte à rebours (format: année, mois - 1, jour, heures, minutes, secondes)
+  var countDownDate = new Date("Dec 20, 2023 00:00:00").getTime();
+
+  var x = setInterval(function() {
+    var now = new Date().getTime();
+    var distance = countDownDate - now;
+
+    var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    var countdownElement = document.getElementById("countdown");
+    var expiredElement = document.getElementById("expired");
+
+    if (distance > 0) {
+      countdownElement.style.display = "block";
+      expiredElement.style.display = "none";
+
+      countdownElement.innerHTML = 
+        (days < 10 ? "0" : "") + days + "d " +
+        (hours < 10 ? "0" : "") + hours + "h " +
+        (minutes < 10 ? "0" : "") + minutes + "m " +
+        (seconds < 10 ? "0" : "") + seconds + "s";
+    } else {
+      clearInterval(x);
+      countdownElement.style.display = "none";
+      expiredElement.style.display = "block";
+    }
+  }, 1000);
+</script>
+
+<div id="expired">EXPIRÉ</div>
+
+</body>
+</html>
